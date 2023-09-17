@@ -5,18 +5,6 @@ import matplotlib.pyplot as plt
 # Pontuações anteriores desde 2006 (ano em que passou a possuir 20 times)
 pc = [78,77,75,67,71,71,77,76,80,81,80,72,80,90,71,84,81]
 
-#plt.hist(pc)
-#plt.show()
-print(sp.shapiro(pc))
-#
-
-import scipy.stats as sp
-import statistics as sts
-import matplotlib.pyplot as plt
-
-# Pontuações anteriores desde 2006 (ano em que passou a possuir 20 times)
-pc = [78,77,75,67,71,71,77,76,80,81,80,72,80,90,71,84,81]
-
 # Função para mostrar que os dados possuem Distribuição Normal, 
 # podendo, dessa forma, ser aplicado o z-score
 def normalidade(pc):
