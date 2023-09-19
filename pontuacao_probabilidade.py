@@ -3,39 +3,37 @@ import statistics as sts
 import matplotlib.pyplot as plt
 
 # Pontuações anteriores desde 2006 (ano em que passou a possuir 20 times)
-pc = [78,77,75,67,71,71,77,76,80,81,80,72,80,90,71,84,81]
+pc = [78, 77, 75, 67, 71, 71, 77, 76, 80, 81, 80, 72, 80, 90, 71, 84, 81]
 
-# Função para mostrar que os dados possuem Distribuição Normal, 
-# podendo, dessa forma, ser aplicado o z-score
-def normalidade(pc):
-    _,r = sp.shapiro(pc)
-    if r>0.05:
-        return True
-    else:
-        return False
+def testar_normalidade(dados):
+    _, p_valor = sp.shapiro(dados)
+    return p_valor > 0.05
 
-def graficoprob():
-    probs = []
-    kvetor = []
-    for k in range(0,101):
-        prob = probporpont(k)
-        probs.append(prob)
-        kvetor.append(k)
+def calcular_probabilidade(pontuacao, dados):
+    media = sts.mean(dados)
+    desvio_padrao = sts.stdev(dados)
+    z_score = (pontuacao - media) / desvio_padrao
+    probabilidade = sp.norm.cdf(z_score)
+    return probabilidade * 100
 
-    plt.plot(kvetor,probs)
+def criar_grafico_probabilidade(dados):
+    probabilidades = []
+    pontuacoes = list(range(0, 101))
+    for pontuacao in pontuacoes:
+        prob = calcular_probabilidade(pontuacao, dados)
+        probabilidades.append(prob)
+        if prob == 100:
+            break
+
+    plt.plot(pontuacoes, probabilidades)
     plt.xlabel("Pontuação")
     plt.ylabel("Probabilidade")
     plt.show()
 
-def probporpont(p):
-    z = (p-sts.mean(pc))/sts.stdev(pc)
-    prob = sp.norm.cdf(z)
-    return prob
-
-# Caso a normalidade seja mostrada pelo teste, podemos utilizar o z-score
-if normalidade(pc):
-    r = int(input("Digite uma pontuação: "))
-    print(f"A probabilidade para essa pontuação é: {round(probporpont(r)*100,2)}%")
-    graficoprob()
+if testar_normalidade(pc):
+    pontuacao = int(input("Digite uma pontuação: "))
+    probabilidade = calcular_probabilidade(pontuacao, pc)
+    print(f"A probabilidade para essa pontuação é: {round(probabilidade, 2)}%")
+    criar_grafico_probabilidade(pc)
 else:
-    print("O teste de z-score não é uma abordagem adequada para calcular esta probabilidade.")
+    print("O teste de normalidade não passou. O z-score não é a abordagem adequada para calcular esta probabilidade.")
