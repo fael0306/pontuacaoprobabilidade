@@ -3,7 +3,7 @@ import statistics as sts
 import matplotlib.pyplot as plt
 
 # Pontuações anteriores desde 2006 (ano em que passou a possuir 20 times)
-pc = [78, 77, 75, 67, 71, 71, 77, 76, 80, 81, 80, 72, 80, 90, 71, 84, 81]
+pc = [78, 77, 75, 67, 71, 71, 77, 76, 80, 81, 80, 72, 80, 90, 71, 84, 81, 70]
 
 def testar_normalidade(dados):
     _, p_valor = sp.shapiro(dados)
