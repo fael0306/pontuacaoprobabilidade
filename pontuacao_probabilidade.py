@@ -33,7 +33,7 @@ def criar_grafico_probabilidade(dados):
 if testar_normalidade(pc):
     pontuacao = int(input("Digite uma pontuação: "))
     probabilidade = calcular_probabilidade(pontuacao, pc)
-    print(f"A probabilidade para essa pontuação é: {round(probabilidade, 2)}%")
+    print(f"A probabilidade para essa pontuação é: {round(probabilidade, 1)}%")
     criar_grafico_probabilidade(pc)
 else:
     print("O teste de normalidade não passou. O z-score não é a abordagem adequada para calcular esta probabilidade.")
